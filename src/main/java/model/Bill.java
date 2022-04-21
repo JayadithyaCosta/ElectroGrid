@@ -44,8 +44,6 @@ public class Bill{
 			
 			totalAfterTax = totalBillAmount + ((totalBillAmount * Double.parseDouble(tax))/100);
 			
-			System.out.println(totalBillAmount + " AMOUNT");
-			System.out.println(totalAfterTax + " TAX");
 			
 			if(con == null) {
 				return "Error while connecting to Database!";
@@ -77,4 +75,65 @@ public class Bill{
 			
 			return output;
 		}
+	
+	
+	public String readBills(){
+		String output = "";
+	
+		try {
+			 Connection con = connect();
+			 if (con == null)
+			 	{return "Error while connecting to the database for reading."; }
+	 
+				 output = "<table border='1'><tr><th>Customer Name</th>" +
+				 "<th>Customer Address</th>" +
+				 "<th>Bill Date</th>" +
+				 "<th>Units Per User</th>" +
+				 "<th>Unit Price</th>" +
+				 "<th>Bill Amount</th>" +
+				 "<th>TAX</th>" +
+				 "<th>Total Amount</th>" +
+				 "<th>Update</th><th>Remove</th></tr>";
+
+				 String query = "select * from bill";
+				 Statement stmt = con.createStatement();
+				 ResultSet rs = stmt.executeQuery(query);
+				 
+			 while (rs.next())
+			 {
+				 String billID = Integer.toString(rs.getInt("billID"));
+				 String billName = rs.getString("billName");
+				 String address = rs.getString("address");
+				 String date = rs.getString("date");;
+				 String units = rs.getString("units");
+				 String unitPrice = rs.getString("unitPrice");
+				 String billAmount = rs.getString("billAmount");
+				 String tax = rs.getString("tax");
+				 String totalAfterTax = rs.getString("totalAfterTax");
+	 
+				 output += "<tr><td>" + billName + "</td>";
+				 output += "<td>" + address + "</td>";
+				 output += "<td>" + date + "</td>";
+				 output += "<td>" + units + "</td>";
+				 output += "<td>" + unitPrice + "</td>";
+				 output += "<td>" + billAmount + "</td>";
+				 output += "<td>" + tax + "</td>";
+				 output += "<td>" + totalAfterTax + "</td>";
+	 
+				 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
+			 			+ "<td><form method='post' action='items.jsp'>"
+			 			+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
+			 					+ "<input name='itemID' type='hidden' value='" + billID
+			 					+ "'>" + "</form></td></tr>";
+			 }
+			 con.close();
+			 output += "</table>";
+	 }
+	 catch (Exception e)
+	 {
+		 output = "Error while reading the items.";
+		 System.err.println(e.getMessage());
+	 }
+	 return output;
+	 } 
 }

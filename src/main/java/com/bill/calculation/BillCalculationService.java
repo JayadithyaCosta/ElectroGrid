@@ -5,6 +5,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -30,4 +31,15 @@ public class BillCalculationService {
 		String output = billObj.insertBill(billCode, billName, address, date, units, unitPrice);
 		return output;
 	}
+	
+	
+	
+	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_HTML)
+	public String getBills() {
+		
+		return billObj.readBills();
+	}
+	
 }
