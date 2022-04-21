@@ -2,8 +2,6 @@ package model;
 
 import java.sql.*;
 
-import com.google.protobuf.ByteString.Output;
-
 public class Bill{
 	
 	private Connection connect() {
@@ -94,8 +92,8 @@ public class Bill{
 				 "<th>Unit Price</th>" +
 				 "<th>Bill Amount</th>" +
 				 "<th>TAX</th>" +
-				 "<th>Total Amount</th>" +
-				 "<th>Update</th><th>Remove</th></tr>";
+				 "<th>Total Amount</th>" ;
+//				 "<th>Update</th><th>Remove</th></tr>";
 
 				 String query = "select * from bill";
 				 Statement stmt = con.createStatement();
@@ -122,11 +120,10 @@ public class Bill{
 				 output += "<td>" + tax + "</td>";
 				 output += "<td>" + totalAfterTax + "</td>";
 	 
-				 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-			 			+ "<td><form method='post' action='items.jsp'>"
-			 			+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-			 					+ "<input name='itemID' type='hidden' value='" + billID
-			 					+ "'>" + "</form></td></tr>";
+//				 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
+//			 			+ "<td><form method='post' action='items.jsp'>"
+//			 			+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
+//			 					+ "<input name='itemID' type='hidden' value='" + billID + "'>" + "</form></td></tr>";
 			 }
 			 con.close();
 			 output += "</table>";
@@ -186,6 +183,37 @@ public class Bill{
 		}
 		return output;
 	
-
+	}
+	
+	
+	//DELETE
+	public String deleteBill(String billID) {
+		
+		String output = "";
+		
+		try {
+			
+			Connection con = connect();
+			 if (con == null){
+				 return "Error while connecting to the database for reading."; 
+			 }
+			 
+			 String query = "delete from bill where billID=?";
+			 
+			 PreparedStatement preparedStatement = con.prepareStatement(query);
+			 
+			 preparedStatement.setInt(1, Integer.parseInt(billID));
+			 
+			 preparedStatement.execute();
+			 con.close();
+			 
+			 output = "Deleted Successfully!";
+			
+		} catch (Exception e) {
+			 output = "Error while deleting the item.";
+			 System.err.println(e.getMessage());
+		}
+		
+		return output;
 	}
 }
