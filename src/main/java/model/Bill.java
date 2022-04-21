@@ -2,6 +2,8 @@ package model;
 
 import java.sql.*;
 
+import com.google.protobuf.ByteString.Output;
+
 public class Bill{
 	
 	private Connection connect() {
@@ -136,4 +138,54 @@ public class Bill{
 	 }
 	 return output;
 	 } 
+	
+	
+	//UPDATE 
+	public String updateBill(String id, String name, String address, String date,
+				String units, String unitPrice, String tax) {
+		
+		String output = "";
+		
+		try {
+			
+			Double billAmount = Integer.parseInt(units) * Double.parseDouble(unitPrice);
+			Double totalAfterTax = billAmount + ((billAmount * Double.parseDouble(tax))/100);
+			
+			Connection con = connect();
+			 if (con == null){
+				 return "Error while connecting to the database for reading."; 
+			 }
+			 
+			 String query = "UPDATE bill SET "
+			 		+ "billName=?, address=?, date=?, units=?, unitPrice=?, billAmount=? , tax=?, totalAfterTax=?"
+			 		+ "WHERE billID=?";
+			 
+			 PreparedStatement preparedStatement = con.prepareStatement(query);
+			 
+			 	
+				preparedStatement.setString(1, name);
+				preparedStatement.setString(2, address);
+				preparedStatement.setString(3, date);
+				preparedStatement.setInt(4, Integer.parseInt(units));
+				preparedStatement.setDouble(5, Double.parseDouble(unitPrice));
+				preparedStatement.setDouble(6, billAmount);
+				preparedStatement.setInt(7, Integer.parseInt(tax));
+				preparedStatement.setDouble(8, totalAfterTax);
+				preparedStatement.setInt(9, Integer.parseInt(id));
+
+			 
+				preparedStatement.execute();
+				con.close();
+				
+				output = "Updated Successfully!";
+			 
+			
+		} catch (Exception e) {
+			 output = "Error while updating the item.";
+			 System.err.println(e.getMessage());
+		}
+		return output;
+	
+
+	}
 }
