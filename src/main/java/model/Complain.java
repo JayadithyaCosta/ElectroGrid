@@ -113,6 +113,57 @@ private Connection connect() {
 			
 			}
 	
+	//READ
+	public String readComplains(){
+		String output = "";
+	
+		try {
+			 Connection con = connect();
+			 if (con == null)
+			 	{return "Error while connecting to the database for reading."; }
+	 
+				 output = "<table border='1'><tr><th>Customer Name</th>" +
+				 "<th>Customer Address</th>" +
+				 "<th>Complain Date</th>" +
+				 "<th>Issue</th>" +
+				 "<th>Status</th>" +
+				 "<th>Remarks</th>";
+//				 "<th>Update</th><th>Remove</th></tr>";
+
+				 String query = "select * from complain";
+				 Statement stmt = con.createStatement();
+				 ResultSet rs = stmt.executeQuery(query);
+				 
+			 while (rs.next())
+			 {
+//				 String complainID = Integer.toString(rs.getInt("complainID"));
+				 String customerName = rs.getString("customerName");
+				 String customerAddress = rs.getString("customerAddress");
+				 String complainDate = rs.getString("complainDate");;
+				 String issue = rs.getString("issue");
+				 String status = rs.getString("status");
+				 String remark = rs.getString("remark");
+	 
+				 output += "<tr><td>" + customerName + "</td>";
+				 output += "<td>" + customerAddress + "</td>";
+				 output += "<td>" + complainDate + "</td>";
+				 output += "<td>" + issue + "</td>";
+				 output += "<td>" + status + "</td>";
+				 output += "<td>" + remark + "</td>";
+	 
+
+			 }
+			 con.close();
+			 output += "</table>";
+	      }
+	        catch (Exception e)
+	      {
+		    output = "Error while reading the items.";
+		    System.err.println(e.getMessage());
+	      }
+	       return output;
+	     } 
+
 	}
 
 

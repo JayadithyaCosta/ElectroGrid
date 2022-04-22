@@ -62,6 +62,15 @@ public class complainManagementService {
 		
 	}
 	
+	
+	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_HTML)
+	public String getBills() {
+		
+		return compObj.readComplains();
+	}
+	
 
 }
 
