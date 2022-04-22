@@ -3,6 +3,8 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Complain {
 	
@@ -23,7 +25,7 @@ private Connection connect() {
 		return con;
 	}
 
-	
+	//INSERT
 	public String insertComplain(String name, String address, String date, String issue) {
 		
 		String output = "";
@@ -65,5 +67,53 @@ private Connection connect() {
 		
 		return output;
 	}
+
 	
-}
+	//UPDATE 
+	public String updateComplain(String id, String name, String address, String date,
+								String issue, String status, String remark) {
+				
+				String output = "";
+				
+				try {
+					
+					
+					Connection con = connect();
+					 if (con == null){
+						 return "Error while connecting to the database for reading."; 
+					 }
+					 
+					 String query = "UPDATE complain SET "
+					 		+ "customerName=?, customerAddress=?, complainDate=?, issue=?, status=?, remark=?"
+					 		+ "WHERE complainID=?";
+					 
+					 PreparedStatement preparedStatement = con.prepareStatement(query);
+					 
+					 	
+						preparedStatement.setString(1, name);
+						preparedStatement.setString(2, address);
+						preparedStatement.setString(3, date);
+						preparedStatement.setString(4, issue);
+						preparedStatement.setString(5, status);
+						preparedStatement.setString(6, remark);
+						preparedStatement.setInt(7, Integer.parseInt(id));
+
+					 
+						preparedStatement.execute();
+						con.close();
+						
+						output = "Updated Successfully!";
+					 
+					
+				} catch (Exception e) {
+					 output = "Error while updating the item.";
+					 System.err.println(e.getMessage());
+				}
+				return output;
+			
+			}
+	
+	}
+
+
+	
