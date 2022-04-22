@@ -163,6 +163,38 @@ private Connection connect() {
 	      }
 	       return output;
 	     } 
+	
+
+	//DELETE
+			public String deleteComplain(String complainID) {
+				
+				String output = "";
+				
+				try {
+					
+					Connection con = connect();
+					 if (con == null){
+						 return "Error while connecting to the database for reading."; 
+					 }
+					 
+					 String query = "delete from complain where complainID=?";
+					 
+					 PreparedStatement preparedStatement = con.prepareStatement(query);
+					 
+					 preparedStatement.setInt(1, Integer.parseInt(complainID));
+					 
+					 preparedStatement.execute();
+					 con.close();
+					 
+					 output = "Deleted Successfully!";
+					
+				} catch (Exception e) {
+					 output = "Error while deleting the item.";
+					 System.err.println(e.getMessage());
+				}
+				
+				return output;
+			}
 
 	}
 

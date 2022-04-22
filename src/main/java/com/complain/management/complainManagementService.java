@@ -72,6 +72,23 @@ public class complainManagementService {
 	}
 	
 
+	@DELETE
+	@Path("/DeleteComplain")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteComplain(String complainData) {
+		
+		//Convert the input string to an XML document
+		Document doc = Jsoup.parse(complainData, "", Parser.xmlParser());
+		
+		//Read the value from the element <billID>
+		 String complainID = doc.select("complainID").text();
+		 
+		 String output = compObj.deleteComplain(complainID);
+		 
+		 return output;
+		
+	}
 }
 
 
