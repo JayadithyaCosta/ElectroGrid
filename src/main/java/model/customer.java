@@ -164,5 +164,38 @@ public class customer {
 		 return output;
 		 }
 		
+		//update
+		public String updateItem(String ID, String ACnumber, String name, String NIC, String Phone,String Email)
+		
+		{
+		    String output = "";
+		try
+		{
+		   Connection con = connect();
+		   if (con == null)
+		    {  return "Error while connecting to the database for updating."; }
+		// create a prepared statement
+		  String query = "UPDATE customer SET AccountNumber=?,Name=?,NIC=?,Phone=?,Email=? WHERE idcustomer=?";
+		  PreparedStatement preparedStmt = con.prepareStatement(query);
+		// binding values
+		   preparedStmt.setInt(1, Integer.parseInt(ACnumber));
+		   preparedStmt.setString(2, name);
+		   preparedStmt.setString(3, NIC);
+		   preparedStmt.setString(4, Phone);
+		   preparedStmt.setString(5, Email);
+		   preparedStmt.setInt(6, Integer.parseInt(ID));
+		// execute the statement
+		   preparedStmt.execute();
+		   con.close();
+		   output = "Updated successfully";
+		}
+		catch (Exception e)
+		{
+		   output = "Error while updating the item.";
+		    System.err.println(e.getMessage());
+		}
+		   return output;
+	 }
+
 	
 }
