@@ -38,7 +38,7 @@ public class PersonalController {
 	{
 		PersonalModel model =new PersonalModel();
 		
-		JsonObject app = new JsonParser().parse(app_text).getAsJsonObject();
+		//JsonObject app = new JsonParser().parse(app_text).getAsJsonObject();
 
 		model.editPersonal(Integer.parseInt(app.get("id").getAsString()),app.get("name").getAsString(),app.get("nic").getAsString(),app.get("address").getAsString(),app.get("phone").getAsString(),app.get("email").getAsString(),app.get("area").getAsString(),app.get("service_center").getAsString(),app.get("solar_panel").getAsString());
 		
