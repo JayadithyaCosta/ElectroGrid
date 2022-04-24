@@ -67,7 +67,7 @@ public class PersonalController {
 
 	}
 
-	@GET
+	//@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String view(String app_text)
 	{
