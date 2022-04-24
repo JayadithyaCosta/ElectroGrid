@@ -29,12 +29,13 @@ return itemObj.readInterruptions();
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertItem(@FormParam("itemCode") String itemCode,
-	@FormParam("itemName") String itemName,
-	@FormParam("itemPrice") String itemPrice,
-	@FormParam("itemDesc") String itemDesc)
+	public String insertItem(@FormParam("region") String region,
+	@FormParam("date") String date,
+	@FormParam("stime") String stime,
+	@FormParam("etime") String etime,
+	@FormParam("status") String status)
 	{
-	String output = itemObj.insertInterruptions(itemCode, itemName, itemPrice, itemDesc);
+	String output = itemObj.insertInterruptions(region, date, stime, etime, status);
 	return output;
 	
 
@@ -47,17 +48,19 @@ return itemObj.readInterruptions();
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.TEXT_PLAIN)
-		public String updateItem(String itemData)
+		public String updateInterruptions(String itemData)
 		{
 		//Convert the input string to a JSON object
 		JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
 		//Read the values from the JSON object
-		String itemID = itemObject.get("itemID").getAsString();
-		String itemCode = itemObject.get("itemCode").getAsString();
-		String itemName = itemObject.get("itemName").getAsString();
-		String itemPrice = itemObject.get("itemPrice").getAsString();
-		String itemDesc = itemObject.get("itemDesc").getAsString();
-		String output = itemObj.updateItem(itemID, itemCode, itemName, itemPrice, itemDesc);
+		String interruptionid = itemObject.get("interruptionid").getAsString();
+		String region = itemObject.get("region").getAsString();
+		String date = itemObject.get("date").getAsString();
+		String stime = itemObject.get("stime").getAsString();
+		String etime = itemObject.get("etime").getAsString();
+		String status = itemObject.get("status").getAsString();
+		
+		String output = itemObj.updateInterruptions(interruptionid, region, date, stime, etime,status);
 		return output;
 		}
 //DELETE

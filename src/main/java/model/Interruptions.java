@@ -119,7 +119,7 @@ return output;
 }
 //UPDATE
 
-	public String updateItem(String ID, String code, String name, String price, String desc)
+	public String updateInterruptions(String interruptionid, String region, String date, String stime, String etime, String status)
 	
 	{
 	    String output = "";
@@ -129,14 +129,15 @@ return output;
 	   if (con == null)
 	    {  return "Error while connecting to the database for updating."; }
 	// create a prepared statement
-	  String query = "UPDATE items SET itemCode=?,itemName=?,itemPrice=?,itemDesc=? WHERE itemID=?";
+	  String query = "UPDATE interruption_table SET region=?,date=?,starting_time=?,end_time=?,status=? WHERE interruptionid=?";
 	  PreparedStatement preparedStmt = con.prepareStatement(query);
 	// binding values
-	   preparedStmt.setString(1, code);
-	   preparedStmt.setString(2, name);
-	   preparedStmt.setDouble(3, Double.parseDouble(price));
-	   preparedStmt.setString(4, desc);
-	   preparedStmt.setInt(5, Integer.parseInt(ID));
+	   preparedStmt.setString(1, region);
+	   preparedStmt.setString(2, date);
+	   preparedStmt.setString(3, stime);
+	   preparedStmt.setString(4, etime);
+	   preparedStmt.setString(5, status);
+	   preparedStmt.setInt(6, Integer.parseInt(interruptionid));
 	// execute the statement
 	   preparedStmt.execute();
 	   con.close();
