@@ -13,7 +13,7 @@ public class DBConnect {
 			//db driver
 			Class.forName("com.mysql.jdbc.Driver");
 			//database link username and password
-			connz = DriverManager.getConnection("jdbc:mysql://localhost:3306/personal", "root", "");
+			//connz = DriverManager.getConnection("jdbc:mysql://localhost:3306/personal", "root", "");
 		}
 		
 		return connz;
