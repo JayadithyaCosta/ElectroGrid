@@ -3,6 +3,8 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.xml.bind.ParseConversionEvent;
 
@@ -71,6 +73,96 @@ public class customer {
 		  }
 		  return output;
 		  }
+		
+		//read
+		
+		public String readItems()
+		  {
+		     String output = "";
+		     try
+		    {
+		      Connection con = connect();
+		      if (con == null)
+		    {
+		        return "Error while connecting to the database for reading.";
+		    }
+		// Prepare the html table to be displayed
+		   output = "<table border='1'><tr><th>AccountNumber</th>"
+		            +"<th>Name</th><th>NIC</th>"
+		            + "<th>Phone</th>"
+		            + "<th>Email</th>"
+		            + "<th>Update</th><th>Remove</th></tr>";
+		   
+		    String query = "select * from customer";
+		    Statement stmt = con.createStatement();
+		    ResultSet rs = stmt.executeQuery(query);
+		// iterate through the rows in the result set
+		   while (rs.next())
+		   {
+		     String itemID = Integer.toString(rs.getInt("idcustomer"));
+		     String itemCode = Integer.toString(rs.getInt("AccountNumber"));
+		     String itemName = rs.getString("Name");
+		     String itemPrice = rs.getString("NIC");
+		     String itemDesc = rs.getString("Phone");
+		     String itemDesc2 = rs.getString("Email");
+		     
+		// Add a row into the html table
+		    output += "<tr><td>" + itemCode + "</td>";
+		    output += "<td>" + itemName + "</td>";
+		    output += "<td>" + itemPrice + "</td>";
+		
+		    output += "<td>" + itemDesc + "</td>";
+		    output += "<td>" + itemDesc2 + "</td>";
+		// buttons
+		    output += "<td><input name='btnUpdate' "
+		    + " type='button' value='Update'></td>"
+		    + "<td><form method='post' action='items.jsp'>"
+		    + "<input name='btnRemove' "
+		    + " type='submit' value='Remove'>"
+		    + "<input name='itemID' type='hidden' "
+		    + " value='" + itemID + "'>" + "</form></td></tr>";
+		    }
+		    con.close();
+		// Complete the html table
+		    output += "</table>";
+		    }
+		   catch (Exception e)
+		  {
+		      output = "Error while reading the items.";
+		      System.err.println(e.getMessage());
+		  }
+		    return output;
+		 }
+		
+		//delete
+		
+		public String deleteItem(String cusID)
+		 {
+		   String output = "";
+		 try
+		 {
+		    Connection con = connect();
+		    if (con == null)
+		  {
+		       return "Error while connecting to the database for deleting.";
+		   }
+		// create a prepared statement
+		      String query = "delete from customer where idcustomer=?";
+		      PreparedStatement preparedStmt = con.prepareStatement(query);
+		// binding values
+		      preparedStmt.setInt(1, Integer.parseInt(cusID));
+		// execute the statement
+		      preparedStmt.execute();
+		      con.close();
+		      output = "Deleted successfully";
+		 }
+		 catch (Exception e)
+		 {
+		      output = "Error while deleting the item.";
+		      System.err.println(e.getMessage());
+		 }
+		 return output;
+		 }
 		
 	
 }
