@@ -9,7 +9,7 @@ import org.jsoup.parser.*;
 import org.jsoup.nodes.Document;
 import com.google.gson.*;
 import model.PersonalModel;
-import org.json.simple.*;
+//import org.json.simple.*;
 
 @Path("/personal")
 public class PersonalController {
