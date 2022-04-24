@@ -9,7 +9,7 @@ import com.google.gson.*;
 import org.jsoup.*; 
 import org.jsoup.parser.*; 
 import org.jsoup.nodes.Document; 
-@Path("/iread") 
+@Path("/interruption") 
 public class InterruptionService 
 { 
 
@@ -62,7 +62,7 @@ return itemObj.readInterruptions();
 		}
 //DELETE
 @DELETE
-@Path("/Idelete")
+@Path("/")
 @Consumes(MediaType.APPLICATION_XML)
 @Produces(MediaType.TEXT_PLAIN)
 public String deleteInterruptions(String itemData)
