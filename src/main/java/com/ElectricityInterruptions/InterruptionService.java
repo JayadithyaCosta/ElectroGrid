@@ -23,8 +23,8 @@ public String readItems()
 {
 return itemObj.readInterruptions();
 }
-//INSERT
-//insert
+// Calling INSERT method
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -41,9 +41,9 @@ return itemObj.readInterruptions();
 
 	}
 
-//UPDATE
+//Calling UPDATE method 
 
-	//update
+	
 		@PUT
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_JSON)
@@ -63,7 +63,7 @@ return itemObj.readInterruptions();
 		String output = itemObj.updateInterruptions(interruptionid, region, date, stime, etime,status);
 		return output;
 		}
-//DELETE
+//Calling DELETE method
 @DELETE
 @Path("/")
 @Consumes(MediaType.APPLICATION_XML)

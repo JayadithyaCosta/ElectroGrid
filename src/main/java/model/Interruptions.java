@@ -25,7 +25,7 @@ private Connection connect()
  return con; 
  } 
 
-// INSERT ITEM
+// INSERT Interruption details to the database
 public String insertInterruptions(String region, String date, String stime, String etime, String status) 
  { 
  String output = ""; 
@@ -60,7 +60,7 @@ System.err.println(e.getMessage());
 return output;
 }
 
-//RETRIVE 
+//RETRIVE Interruptions details
 
 public String readInterruptions()
 {
@@ -75,8 +75,8 @@ return "Error while connecting to the database for reading.";
 // Prepare the html table to be displayed
 output = "<table border='1'><tr><th>Region</th>"
 +"<th>Date</th><th>Starting Time</th>"
-+ "<th>End Time</th>"+"<th>Status</th>"
-+ "<th>Update</th><th>Remove</th></tr>";
++ "<th>End Time</th>"+"<th>Status</th>";
+//+ "<th>Update</th><th>Remove</th></tr>";
 String query = "select * from interruption_table";
 Statement stmt = con.createStatement();
 ResultSet rs = stmt.executeQuery(query);
@@ -98,18 +98,22 @@ output += "<td>" + end_time + "</td>";
 output += "<td>" + status + "</td>";
 
 // buttons
-output += "<td><input name='btnUpdate' "
-+ " type='button' value='Update'></td>"
-+ "<td><form method='post' action='interruption.jsp'>"
-+ "<input name='btnRemove' "
+
+output += "<td><form method='post' action='interruption.jsp'>"/*"<td><input name='btnUpdate' "
++ " type='button' value='Update'></td>"*/
+
+/*+ "<input name='btnRemove' "
 + " type='submit' value='Remove'>"
 + "<input name='itemID' type='hidden' "
-+ " value='" + interruptionid + "'>" + "</form></td></tr>";
++ " value='" + interruptionid + "'>"*/ + "</form></td></tr>";
 }
+
 con.close();
+
 // Complete the html table
 output += "</table>";
 }
+
 catch (Exception e)
 {
 output = "Error while reading the items.";
@@ -117,7 +121,7 @@ System.err.println(e.getMessage());
 }
 return output;
 }
-//UPDATE
+//UPDATE Interruption data 
 
 	public String updateInterruptions(String interruptionid, String region, String date, String stime, String etime, String status)
 	
@@ -152,7 +156,7 @@ return output;
 }
 
 
-//delete
+//Remove Interruption details from the database
 	
 public String deleteInterruptions(String Interuptiondata)
 {
