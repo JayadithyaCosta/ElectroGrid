@@ -25,7 +25,7 @@ private Connection connect()
  return con; 
  } 
 
-// INSERT ITEM
+// INSERT Interruption details to the database
 public String insertInterruptions(String region, String date, String stime, String etime, String status) 
  { 
  String output = ""; 
@@ -60,7 +60,7 @@ System.err.println(e.getMessage());
 return output;
 }
 
-//RETRIVE 
+//RETRIVE Interruptions details
 
 public String readInterruptions()
 {
@@ -121,7 +121,7 @@ System.err.println(e.getMessage());
 }
 return output;
 }
-//UPDATE
+//UPDATE Interruption data 
 
 	public String updateInterruptions(String interruptionid, String region, String date, String stime, String etime, String status)
 	
@@ -156,7 +156,7 @@ return output;
 }
 
 
-//delete
+//Remove Interruption details from the database
 	
 public String deleteInterruptions(String Interuptiondata)
 {
