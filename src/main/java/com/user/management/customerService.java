@@ -27,7 +27,7 @@ public class customerService {
 	
 	//insert
 		@POST
-		@Path("/")
+		@Path("AddAccount")
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		@Produces(MediaType.TEXT_PLAIN)
 		public String insertItem(@FormParam("AccountNumber") String AccountNumber,
@@ -52,7 +52,7 @@ public class customerService {
 		
 		//delete
 		@DELETE
-		@Path("/")
+		@Path("DeleteAccount")
 		@Consumes(MediaType.APPLICATION_XML)
 		@Produces(MediaType.TEXT_PLAIN)
 		public String deleteItem(String itemData)
@@ -67,7 +67,7 @@ public class customerService {
 		
 		//update
 		@PUT
-		@Path("/")
+		@Path("UpdateAccount")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.TEXT_PLAIN)
 		public String updateItem(String itemData)

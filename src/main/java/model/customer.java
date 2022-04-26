@@ -11,6 +11,8 @@ import javax.xml.bind.ParseConversionEvent;
 import com.mysql.cj.ParseInfo;
 
 public class customer {
+	
+	//DB connection variabale
 	private static String url = "jdbc:mysql://localhost:3306/school";
 	private static String userName = "root";
 	private static String password = "Udesh@1975";
@@ -74,7 +76,7 @@ public class customer {
 		  return output;
 		  }
 		
-		//read
+		//read method
 		
 		public String readItems()
 		  {
@@ -99,20 +101,20 @@ public class customer {
 		// iterate through the rows in the result set
 		   while (rs.next())
 		   {
-		     String itemID = Integer.toString(rs.getInt("idcustomer"));
-		     String itemCode = Integer.toString(rs.getInt("AccountNumber"));
-		     String itemName = rs.getString("Name");
-		     String itemPrice = rs.getString("NIC");
-		     String itemDesc = rs.getString("Phone");
-		     String itemDesc2 = rs.getString("Email");
+		     String idcustomer = Integer.toString(rs.getInt("idcustomer"));
+		     String AccountNumber = Integer.toString(rs.getInt("AccountNumber"));
+		     String Name = rs.getString("Name");
+		     String NIC = rs.getString("NIC");
+		     String Phone = rs.getString("Phone");
+		     String Email = rs.getString("Email");
 		     
 		// Add a row into the html table
-		    output += "<tr><td>" + itemCode + "</td>";
-		    output += "<td>" + itemName + "</td>";
-		    output += "<td>" + itemPrice + "</td>";
+		    output += "<tr><td>" + AccountNumber + "</td>";
+		    output += "<td>" + Name + "</td>";
+		    output += "<td>" + NIC + "</td>";
 		
-		    output += "<td>" + itemDesc + "</td>";
-		    output += "<td>" + itemDesc2 + "</td>";
+		    output += "<td>" + Phone + "</td>";
+		    output += "<td>" + Email + "</td>";
 		// buttons
 		    output += "<td><input name='btnUpdate' "
 		    + " type='button' value='Update'></td>"
@@ -120,7 +122,7 @@ public class customer {
 		    + "<input name='btnRemove' "
 		    + " type='submit' value='Remove'>"
 		    + "<input name='itemID' type='hidden' "
-		    + " value='" + itemID + "'>" + "</form></td></tr>";
+		    + " value='" + idcustomer + "'>" + "</form></td></tr>";
 		    }
 		    con.close();
 		// Complete the html table
@@ -134,7 +136,7 @@ public class customer {
 		    return output;
 		 }
 		
-		//delete
+		//delete method
 		
 		public String deleteItem(String cusID)
 		 {
@@ -158,7 +160,7 @@ public class customer {
 		 }
 		 catch (Exception e)
 		 {
-		      output = "Error while deleting the item.";
+		      output = "Error while deleting the account.";
 		      System.err.println(e.getMessage());
 		 }
 		 return output;
@@ -191,7 +193,7 @@ public class customer {
 		}
 		catch (Exception e)
 		{
-		   output = "Error while updating the item.";
+		   output = "Error while updating the account.";
 		    System.err.println(e.getMessage());
 		}
 		   return output;
